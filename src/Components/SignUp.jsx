@@ -2,9 +2,12 @@ import { useEffect, useState } from "react";
 import axios from  "axios"
 import {useNavigate} from "react-router-dom"
 import NavBar from "./NavBar";
+import { useRecoilValue } from "recoil";
+import { tokenAtom } from "../Store/Atoms/User";
 function SignUp(){
     const [signUpData , setSignUpData] = useState({});
     const naviagte  = useNavigate();
+    const token = useRecoilValue(tokenAtom)
     const changeHandler = (e)=>{
         setSignUpData({
             ...signUpData,
@@ -28,7 +31,13 @@ function SignUp(){
         }
     }
     return(
-        <div className=" bg-slate-500 h-screen">
+        <div>
+            {
+                token !== null &&(
+                    naviagte("/dashboard/profile")
+                )
+            }
+            <div className=" bg-slate-500 h-screen">
             <NavBar></NavBar>
             <div className=" w-screen h-[80%] flex items-center justify-center bg-slate-500 overflow-y-hidden">
                 <div className=" w-[500px] flex flex-col border-2 border-black gap-10  items-center shadow-xl bg-white rounded-xl">
@@ -56,6 +65,7 @@ function SignUp(){
                     </div>
                 </div>
             </div>
+        </div>
         </div>
     )
 }
