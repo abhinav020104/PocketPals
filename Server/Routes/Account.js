@@ -44,4 +44,27 @@ router.post("/search" , async(req , res)=>{
     const {MobileNumber} = req.body;
     
 })
+router.put("/topup" , async(req , res)=>{
+    const {userId , amount} = req.body;
+    try{
+        const AccountDetails = Account.findOne({userId});
+        if(!AccountDetails){
+            return res.status(400).json({
+                success:false,
+                message:"Invalid Account Details",
+            })
+        }
+        const UpdatedDetails = await Account.findOneAndUpdate({userId},{Balance:amount},{new:true});
+        return res.status(200).json({
+            success:true,
+            message:"Top Up Successfull !",
+            data:UpdatedDetails,
+        })
+    }catch(error){
+        console.log(error);
+        console.log("Error while top up !");
+        alert("Failed to Top up !");
+    }
+
+})
 module.exports = router;

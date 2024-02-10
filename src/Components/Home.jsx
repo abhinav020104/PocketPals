@@ -4,19 +4,22 @@ import { Link } from "react-router-dom";
 import NavBar from "./NavBar";
 import { useState } from "react";
 import axios from "axios";
-import {Navigate} from "react-router-dom";
+import {useNavigate} from "react-router-dom";
 function Home(){
     const user = useRecoilValue(userAtom);
     const token = useRecoilValue(tokenAtom);
     const account = useRecoilValue(AccountAtom);
     const [SearchData , setSearchData] = useState("");
+    const navigate = useNavigate();
     const changeHandler = (e)=>{
         console.log(e.value);
         setSearchData(e.value);
     }
     const searcHandler = ()=>{
     }
-    console.log(account);
+    const clickHandler = ()=>{
+        navigate("/topup");
+    }
     return(
         <div>
             {/* {
@@ -30,8 +33,11 @@ function Home(){
                     <div className="">
                         {token !== null &&(
                             <div>
-                                <div className=" text-white text-2xl font-bold mb-[100px]">
-                                    {`Balance : ${account.Balance} $`}
+                                <div className="flex text-white text-2xl font-bold mb-[100px] items-center gap-4">
+                                    {`Balance : ${account.Balance} $`} 
+                                    <div>
+                                        <button className=" border-2 border-slate-600 p-1 text-center rounded-lg bg-slate-800 hover:scale-95 transition-all duration-100 w-[150px]" onClick={clickHandler}>TopUp</button>
+                                    </div>
                                 </div>                        
                                 <div className="flex justify-center gap-2">
                                     <input type="text" name="" placeholder="Send Money To A Number" onChange={changeHandler} className="p-2 rounded-xl text-center w-[20%] outline-none select-none"/>
