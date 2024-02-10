@@ -16,7 +16,7 @@ function SignUp(){
             console.log(signUpData)
             await axios({
                 method:"post",
-                url:"http://localhost:5000/api/v1/signup",
+                url:"https://paytm-backend-bv0y.onrender.com/api/v1/signup",
                 data:signUpData,
             })
             alert("SignUp Successfull !");

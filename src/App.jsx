@@ -19,7 +19,7 @@ function App() {
     try{
       const userDetails = await axios({
         method:"post",
-        url:"http://localhost:5000/api/v1/getUserDetails",
+        url:"https://paytm-backend-bv0y.onrender.com/api/v1/getUserDetails",
         data:{
           token:token
         }})

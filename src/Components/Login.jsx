@@ -21,7 +21,7 @@ const Login = () => {
         try{
             const response = await axios({
                 method:"post",
-                url:"http://localhost:5000/api/v1/login",
+                url:"https://paytm-backend-bv0y.onrender.com/api/v1/login",
                 data:loginData
             })
                 localStorage.setItem("token", JSON.stringify(response.data.data.token));
