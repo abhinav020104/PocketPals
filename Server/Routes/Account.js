@@ -44,10 +44,12 @@ router.post("/search" , async(req , res)=>{
     const {MobileNumber} = req.body;
     try{
         const details = await User.findOne({MobileNumber}).populate("AccountDetails");
+        console.log(details);
         if(!details){
-            return res.status(404).json({
-                success:false,
-                message:"No User Found !"
+            return res.status(200).json({
+                success:true,
+                message:"No User Found !",
+                data:details
             })
         }else{
             return res.status(200).json({

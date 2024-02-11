@@ -14,6 +14,7 @@ function Home(){
     const [SearchData , setSearchData] = useState("");
     const [searchVisible , setSearchVisible] = useState(false);
     const [searchResponse , setsearchResponse] = useState({});
+    const [notFound , setNotFound] = useState(false);
     const navigate = useNavigate();
     const changeHandler = (e)=>{
         setSearchData({
@@ -24,14 +25,21 @@ function Home(){
     const searcHandler = async()=>{
         try{
             setLoading(true);
+            setSearchData({});
+            setSearchVisible(false);
             const response = await axios({
                 method:"post",
                 url:"http://localhost:5000/api/v1/account/search",
                 data:SearchData,
             })
-            setsearchResponse(response);
-            setLoading(false);
-            setSearchVisible(true);
+            if(response.data.data !== null){
+                setsearchResponse(response);
+                setLoading(false);
+                setSearchVisible(true);
+            }else{
+                setNotFound(true);
+                setLoading(false);
+            }
         }catch(error){
             console.log(error);
             console.log("Search error front end !");
@@ -63,24 +71,58 @@ function Home(){
                         )}
                     </div>
                     <div className="w-full flex items-center justify-center ">
-                        <div>
+                        <div >
                             {
                                 loading === true && (
-                                    <div  className="mt-16">
-                                        loading
+                                    <div  className=" w-full mt-16 flex items-center justify-center text-white font-bold text-xl">
+                                        <div>
+                                            loading
+                                        </div>
                                     </div>
                                 )
                             }
                         </div>
+                        <div className="w-full">
                         {
                             searchVisible === true &&(
-                                <div className="w-full flex  mt-16">
-                                    <div></div>
-                                    <div></div>
-                                    <div></div>
+                                <div className="w-full flex  mt-16 h-[50px] border-[1px] border-black items-center justify-around rounded-md">
+                                    <div className=" flex gap-3 text-white font-bold font-xl">
+                                        <div>Frist Name : </div>
+                                        <div>
+                                            {
+                                                `${searchResponse.data.data.FirstName}`
+                                            }
+                                        </div>
+                                    </div>
+                                    <div className=" flex gap-3 text-white font-bold font-xl">
+                                        <div>Last Name : </div>
+                                        <div>
+                                            {
+                                                `${searchResponse.data.data.LastName}`
+                                            }
+                                        </div>
+                                    </div>
+                                    <div className=" flex gap-3 text-white font-bold font-xl">
+                                        <div>Mobile Number : </div>
+                                        <div>
+                                            {
+                                                `${searchResponse.data.data.MobileNumber}`
+                                            }
+                                        </div>
+                                    </div>
                                 </div>
                             )
                         }
+                        {
+                            notFound === true && (
+                                <div className="w-full flex  mt-16 h-[50px] border-[1px] border-black items-center justify-around rounded-md">
+                                    <div className="text-white font-bold text-xl">
+                                        No User Found
+                                    </div>
+                                </div>
+                            )
+                        }
+                        </div>
                     </div>
                     <div className="flex h-full w-full items-center justify-center mt-[150px]">
                              <img src={homeAnimation} className="w-[500px] "/>
