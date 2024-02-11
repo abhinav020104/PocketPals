@@ -27,6 +27,7 @@ function Home(){
             setLoading(true);
             setSearchData({});
             setSearchVisible(false);
+            setNotFound(false);
             const response = await axios({
                 method:"post",
                 url:"http://localhost:5000/api/v1/account/search",
