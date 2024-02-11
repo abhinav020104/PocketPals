@@ -5,6 +5,7 @@ import { useNavigate } from "react-router-dom";
 import NavBar from "./NavBar";
 import animation from "../assets/Images/17076512559505.gif";
 import axios from "axios"
+import toast from "react-hot-toast"
 const Transfer = () => {
     const [PaymentData, setPaymentData] = useRecoilState(PaymentAtom);
     const [amountValue , setAmountValue] =  useState("");
@@ -30,10 +31,11 @@ const Transfer = () => {
                 amount:amountValue,
             },
         })
-        alert("Transfer Successfull !");
+        toast.success("Transfer Successfull");
         setAccount(response.data.data);
         navigate("/");
        }catch(error){
+        toast.error(error.response.data.message)
         console.log(error);
         console.log("error while transferring funds");
        }

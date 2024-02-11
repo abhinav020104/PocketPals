@@ -4,6 +4,7 @@ import axios from "axios"
 import NavBar from "./NavBar";
 import { useState } from "react";
 import {useNavigate , Navigate} from "react-router-dom"
+import toast from "react-hot-toast"
 const TopUp = ()=>{
     const token = useRecoilValue(tokenAtom);
     const [account , setAccount] = useRecoilState(AccountAtom);
@@ -20,7 +21,7 @@ const TopUp = ()=>{
             console.log(response);
             setAccount(response.data.data);
             navigate("/");
-            alert("TopUp Successfull");
+            toast.success("Top Up Successfull");
         }catch(error){
             console.log(error);
             console.log("top up front end error !");

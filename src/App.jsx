@@ -13,6 +13,7 @@ import Dashboard from './Components/Dashboard';
 import Transactions from './Components/Transactions';
 import TopUp from './Components/TopUp';
 import Transfer from './Components/Transfer';
+import {Toaster} from "react-hot-toast"
 function App() {
   const token = useRecoilValue(tokenAtom);
   const [user , setUser] = useRecoilState(userAtom);
@@ -36,6 +37,7 @@ function App() {
   },[]);
   return (
     <div>
+      <Toaster></Toaster>
       <Routes>
         <Route path = '/' element = {<Home></Home>} ></Route>
         <Route path='/login' element = {<Login/>}></Route>

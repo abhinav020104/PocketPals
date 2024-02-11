@@ -4,6 +4,7 @@ import {useNavigate} from "react-router-dom"
 import NavBar from "./NavBar";
 import { useRecoilValue } from "recoil";
 import { tokenAtom } from "../Store/Atoms/User";
+import toast from "react-hot-toast"
 function SignUp(){
     const [signUpData , setSignUpData] = useState({});
     const naviagte  = useNavigate();
@@ -22,12 +23,12 @@ function SignUp(){
                 url:"https://paytm-backend-bv0y.onrender.com/api/v1/signup",
                 data:signUpData,
             })
-            alert("SignUp Successfull !");
+            toast.success("SignUp Successfull")
             naviagte("/login");
         }catch(error){
             console.log(error);
             console.log("SignUp FrontEnd Error");
-            alert("Sign Up Failed !");
+            toast.error("Sign Up Failed")
         }
     }
     return(

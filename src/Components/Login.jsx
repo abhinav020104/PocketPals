@@ -5,6 +5,7 @@ import axios from "axios"
 import NavBar from "./NavBar";
 import {useNavigate} from "react-router-dom"
 import {Navigate}  from "react-router-dom"
+import toast from "react-hot-toast"
 const Login = () => {   
     const setUser = useSetRecoilState(userAtom);
     const setToken = useSetRecoilState(tokenAtom);
@@ -27,9 +28,10 @@ const Login = () => {
                 localStorage.setItem("token", JSON.stringify(response.data.data.token));
                 setUser(response.data.data);
                 setToken(response.data.data.token);
+                toast.success("Login Successfull")
                 navigate("/");
         }catch(error){
-            alert("Invalid Credentials");
+            toast.error("Invalid Credentials")
             console.log("Login Error");
             console.log(error);
         }
