@@ -1,13 +1,14 @@
 import { useEffect  , useState} from "react";
 import { useRecoilState, useRecoilValue } from "recoil";
-import { PaymentAtom, userAtom } from "../Store/Atoms/User";
+import { AccountAtom, PaymentAtom, userAtom } from "../Store/Atoms/User";
 import { useNavigate } from "react-router-dom";
 import NavBar from "./NavBar";
 import animation from "../assets/Images/17076512559505.gif";
 import axios from "axios"
 const Transfer = () => {
     const [PaymentData, setPaymentData] = useRecoilState(PaymentAtom);
-    const [amountValue , setAmountValue] =  useState("")
+    const [amountValue , setAmountValue] =  useState("");
+    const [account , setAccount] = useRecoilState(AccountAtom);
     const user = useRecoilValue(userAtom);
     const navigate = useNavigate();
         // console.log(user)
@@ -19,8 +20,8 @@ const Transfer = () => {
     }, [PaymentData]);
 
     const clickHandler = async() => {
-       try{
-        const  response = await axios({
+       try{     
+        const response = await axios({
             method:"post",
             url:"http://localhost:5000/api/v1/account/transfer",
             data:{
@@ -29,7 +30,9 @@ const Transfer = () => {
                 amount:amountValue,
             },
         })
-        console.log(response);
+        alert("Transfer Successfull !");
+        setAccount(response.data.data);
+        navigate("/");
        }catch(error){
         console.log(error);
         console.log("error while transferring funds");

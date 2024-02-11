@@ -32,12 +32,13 @@ router.post("/transfer", async (req, res) => {
             message: "Invalid account"
         });
     }
-    await Account.updateOne({ userId: userId }, { $inc: { Balance: -amount } } , { new : true }).session(session);
+    const updatedDetails = await Account.findOneAndUpdate({ userId: userId }, { $inc: { Balance: -amount } } , { new : true }).session(session);
     await Account.updateOne({ userId: to }, { $inc: { Balance: amount } } , { new : true }).session(session);
     await session.commitTransaction();
     res.status(200).json({
         success:true,
         message:"Amount transfered sucessfully !",
+        data:updatedDetails,
     })
 });
 
