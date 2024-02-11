@@ -24,7 +24,7 @@ const Transfer = () => {
        try{     
         const response = await axios({
             method:"post",
-            url:"http://localhost:5000/api/v1/account/transfer",
+            url:"https://paytm-backend-bv0y.onrender.com/api/v1/account/transfer",
             data:{
                 userId:user.AccountDetails.userId,
                 to:PaymentData.data.data.AccountDetails.userId,
