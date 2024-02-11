@@ -42,7 +42,24 @@ router.post("/transfer", async (req, res) => {
 
 router.post("/search" , async(req , res)=>{
     const {MobileNumber} = req.body;
-    
+    try{
+        const details = await User.findOne({MobileNumber}).populate("AccountDetails");
+        if(!details){
+            return res.status(404).json({
+                success:false,
+                message:"No User Found !"
+            })
+        }else{
+            return res.status(200).json({
+                success:"Success",
+                message:"User fetched successfully !",
+                data:details,
+            })
+        }
+    }catch(error){
+        console.log(error);
+        console.log("Error while searching the user !");
+    }
 })
 router.put("/topup", async (req, res) => {
     const { userId, amount } = req.body;

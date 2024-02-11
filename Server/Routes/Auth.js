@@ -30,31 +30,6 @@ router.post("/getUserDetails" , async(req ,res) =>{
     }
 })
 
-// router.get("/bulk", async (req, res) => {
-//     const filter = req.query.filter || "";
-
-//     const users = await User.find({
-//         $or: [{
-//             FirstName: {
-//                 "$regex": filter
-//             }
-//         }, {
-//             LastName: {
-//                 "$regex": filter
-//             }
-//         }]
-//     })
-
-//     res.json({
-//         user: users.map(user => ({
-//             username: user.UserName,
-//             firstName: user.FirstName,
-//             lastName: user.LastName,
-//             _id: user._id
-//         }))
-//     })
-// })
-
 router.post("/fetchaccount" , async (req , res)=>{
     const number = req.body.number;
    try{

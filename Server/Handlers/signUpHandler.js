@@ -4,8 +4,7 @@ const bcrypt = require("bcrypt");
 const signUpHandler =  async(req , res)=>{
     try{
         const {FirstName , LastName  , UserName ,  Password , ConfirmPassword , MobileNumber} =  req.body;
-        console.log(MobileNumber);
-        const existing = await User.findOne({UserName:UserName});
+        const existing = await User.findOne({UserName:UserName , MobileNumber:MobileNumber});
         if(existing){
             return res.status(401).json({
                 success:false,

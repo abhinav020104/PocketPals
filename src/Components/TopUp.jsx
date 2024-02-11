@@ -1,10 +1,11 @@
 import { useRecoilState, useRecoilValue } from "recoil";
-import { AccountAtom } from "../Store/Atoms/User";
+import { AccountAtom, tokenAtom } from "../Store/Atoms/User";
 import axios from "axios"
 import NavBar from "./NavBar";
 import { useState } from "react";
-import {useNavigate} from "react-router-dom"
+import {useNavigate , Navigate} from "react-router-dom"
 const TopUp = ()=>{
+    const token = useRecoilValue(tokenAtom);
     const [account , setAccount] = useRecoilState(AccountAtom);
     const [topUpdata , settopUpdata] = useState({});
     const navigate = useNavigate();
@@ -35,14 +36,21 @@ const TopUp = ()=>{
         })
     }
     return(
-        <div className="h-screen flex flex-col">
+        <div>
+            {
+                token === null&&(
+                    <Navigate to="/login"></Navigate>
+                )
+            }
+             <div className="h-screen flex flex-col">
             <NavBar></NavBar>
             <div className="h-full bg-slate-500 w-full flex items-center justify-center text-white select-none">
                 <div className="w-[300px] flex flex-col border-black border-[1px] rounded-md shadow-2xl bg-slate-100 h-[200px] items-center justify-between gap-10">
-                    <input type="number" className="bg-slate-500 p-2 text-white rounded-md mt-10 w-[250px]" placeholder="Enter Amount to TopUp" onChange={changeHandler}  name="amount"/>
+                    <input type="text" className="bg-slate-500 p-2 text-white rounded-md mt-10 w-[250px]" placeholder="Enter Amount to TopUp" onChange={changeHandler}  name="amount"/>
                     <button className=" border-2 border-slate-600 p-2 w-[100px] mb-14 text-center rounded-lg bg-slate-800 hover:scale-95 transition-all duration-100" onClick={clickHandler} >TopUp</button>
                 </div>  
             </div>
+        </div>
         </div>
     )
 }
