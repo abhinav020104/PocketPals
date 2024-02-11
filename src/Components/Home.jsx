@@ -74,10 +74,8 @@ function Home(){
                         <div >
                             {
                                 loading === true && (
-                                    <div  className=" w-full mt-16 flex items-center justify-center text-white font-bold text-xl">
-                                        <div>
-                                            loading
-                                        </div>
+                                    <div  className="mt-16">
+                                        loading
                                     </div>
                                 )
                             }
