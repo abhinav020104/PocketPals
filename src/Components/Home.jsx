@@ -30,7 +30,7 @@ function Home(){
             setNotFound(false);
             const response = await axios({
                 method:"post",
-                url:"http://localhost:5000/api/v1/account/search",
+                url:"https://paytm-backend-bv0y.onrender.com/api/v1/account/search",
                 data:SearchData,
             })
             if(response.data.data !== null){
