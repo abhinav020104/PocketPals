@@ -1,5 +1,5 @@
-import { useRecoilState_TRANSITION_SUPPORT_UNSTABLE, useRecoilValue } from "recoil";
-import { userAtom , tokenAtom, AccountAtom } from "../Store/Atoms/User";
+import { useRecoilState, useRecoilState_TRANSITION_SUPPORT_UNSTABLE, useRecoilValue } from "recoil";
+import { userAtom , tokenAtom, AccountAtom, PaymentAtom } from "../Store/Atoms/User";
 import { Link } from "react-router-dom";
 import NavBar from "./NavBar";
 import { useState } from "react";
@@ -11,21 +11,23 @@ function Home(){
     const user = useRecoilValue(userAtom);
     const token = useRecoilValue(tokenAtom);
     const account = useRecoilValue(AccountAtom);
+    const [paymentData , setPaymentData] = useRecoilState(PaymentAtom);
     const [SearchData , setSearchData] = useState("");
     const [searchVisible , setSearchVisible] = useState(false);
     const [searchResponse , setsearchResponse] = useState({});
     const [notFound , setNotFound] = useState(false);
+    const [searchBarValue , setSearchBarValue] = useState("");
     const navigate = useNavigate();
     const changeHandler = (e)=>{
         setSearchData({
             ...SearchData,
             [e.target.name]:e.target.value
         })
+        setSearchBarValue(e.target.value);
     }
     const searcHandler = async()=>{
         try{
             setLoading(true);
-            setSearchData({});
             setSearchVisible(false);
             setNotFound(false);
             const response = await axios({
@@ -37,9 +39,12 @@ function Home(){
                 setsearchResponse(response);
                 setLoading(false);
                 setSearchVisible(true);
+                setSearchBarValue("");
+                setPaymentData(response);
             }else{
                 setNotFound(true);
                 setLoading(false);
+                setSearchBarValue("");
             }
         }catch(error){
             console.log(error);
@@ -64,7 +69,7 @@ function Home(){
                                     </div>
                                 </div>                        
                                 <div className="flex justify-center gap-2">
-                                    <input type="text" name="MobileNumber" placeholder="Send Money To A Number" onChange={changeHandler}  className="p-2 rounded-xl text-center w-[20%] outline-none select-none" />
+                                    <input type="text" name="MobileNumber" placeholder="Send Money To A Number" onChange={changeHandler}  className="p-2 rounded-xl text-center w-[20%] outline-none select-none" value={searchBarValue}/>
                                     <button className="font-bold bg-slate-700 rounded-xl text-slate-300 p-2" onClick={searcHandler}> Search </button>
                                 </div>
                             </div>
@@ -109,6 +114,11 @@ function Home(){
                                             }
                                         </div>
                                     </div>
+                                    <button className="border-2 border-slate-600 p-1 text-center rounded-lg bg-slate-800 hover:scale-95 transition-all duration-100 w-[150px] text-white font-bold" onClick={()=>{
+                                        navigate("/transfer");
+                                    }}>
+                                        Pay
+                                    </button>
                                 </div>
                             )
                         }

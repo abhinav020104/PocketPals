@@ -15,5 +15,9 @@ const AccountAtom = atom({
     default:{},
 })
 
-export {userAtom , tokenAtom , AccountAtom}
+const PaymentAtom = atom({
+    key:"PaymentAtom",
+    default:null,
+})
+export {userAtom , tokenAtom , AccountAtom , PaymentAtom}
 

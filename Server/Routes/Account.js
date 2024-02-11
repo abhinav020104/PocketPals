@@ -1,4 +1,5 @@
 const express = require("express"); 
+const mongoose = require("mongoose");
 const router = express.Router();
 const Account = require("../Models/Account");
 const User = require("../Models/User");
@@ -31,8 +32,8 @@ router.post("/transfer", async (req, res) => {
             message: "Invalid account"
         });
     }
-    await Account.updateOne({ userId: req.userId }, { $inc: { balance: -amount } } , { new : true }).session(session);
-    await Account.updateOne({ userId: to }, { $inc: { balance: amount } } , { new : true }).session(session);
+    await Account.updateOne({ userId: userId }, { $inc: { Balance: -amount } } , { new : true }).session(session);
+    await Account.updateOne({ userId: to }, { $inc: { Balance: amount } } , { new : true }).session(session);
     await session.commitTransaction();
     res.status(200).json({
         success:true,

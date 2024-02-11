@@ -12,6 +12,7 @@ import ProtectedRoute from './Components/ProtectedRoute';
 import Dashboard from './Components/Dashboard';
 import Transactions from './Components/Transactions';
 import TopUp from './Components/TopUp';
+import Transfer from './Components/Transfer';
 function App() {
   const token = useRecoilValue(tokenAtom);
   const [user , setUser] = useRecoilState(userAtom);
@@ -44,6 +45,7 @@ function App() {
           <Route path='/dashboard/transactions' element={<Transactions/>}></Route>
         </Route>
         <Route path='/topup' element={<TopUp/>}></Route>
+        <Route path='/transfer' element={<Transfer></Transfer>}></Route>
       </Routes>
     </div>
   )
