@@ -3,6 +3,7 @@ const mongoose = require("mongoose");
 const router = express.Router();
 const Account = require("../Models/Account");
 const User = require("../Models/User");
+const bcrypt = require("bcrypt");
 router.post("/balance" , async(req , res)=>{
     const {id} = req.body;
     const details = await User.findOne({_id:id}).populate("AccountDetails");
@@ -19,6 +20,8 @@ router.post("/transfer", async (req, res) => {
     session.startTransaction();
     const { amount , to , userId , TransactionPin} = req.body;
     const account = await Account.findOne({ userId: userId }).session(session);
+    const userDetails = await User.findOne({_id:userId});
+    console.log(userDetails); 
     if (!account || account.Balance < amount) {
         await session.abortTransaction();
         return res.status(400).json({

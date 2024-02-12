@@ -19,7 +19,7 @@ const signUpHandler =  async(req , res)=>{
         }
         const hashedPassword = await bcrypt.hash(Password,10);
         const hashedTransactionPin = await bcrypt.hash(TransactionPin , 10);
-        const newUser = await User.create({FirstName , LastName , UserName , Password : hashedPassword , MobileNumber ,TransactionPin :hashedTransactionPin});
+        const newUser = await User.create({FirstName , LastName , UserName , Password : hashedPassword , MobileNumber , TransactionPin :hashedTransactionPin});
         const AccountInfo = await Account.create({userId:newUser._id , Balance:0});
         const updatedUserDetails = await User.findOneAndUpdate({_id:newUser._id} , {AccountDetails:AccountInfo._id}  ,{new : true}).populate("AccountDetails");
         return res.status(200).json({
