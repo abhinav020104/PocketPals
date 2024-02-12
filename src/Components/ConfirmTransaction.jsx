@@ -16,6 +16,7 @@ function ConfirmTransaction () {
     const navigate = useNavigate();
     const clickHandler = async() =>{
         try{
+            toast.loading("Verification in progress !");
             const response = await axios({
                 method:"post",
                 url:"https://paytm-backend-bv0y.onrender.com/api/v1/account/transfer",
@@ -26,6 +27,7 @@ function ConfirmTransaction () {
                     TransactionPin:pin
                 },
             })
+            toast.dismiss();
             toast.success("Transaction Sucessfull");
             setAccount(response.data.data);
             navigate("/");
@@ -34,6 +36,9 @@ function ConfirmTransaction () {
             console.log("Error While Transfering Funds");
             console.log(error);
         }
+    }
+    const ForgotPinHandler = ()=>{
+        navigate("/forgot-pin"); 
     }
     return(
         <div className="h-screen w-screen flex flex-col bg-slate-500">
@@ -49,6 +54,9 @@ function ConfirmTransaction () {
                         <button className="font-bold bg-slate-700 rounded-xl text-slate-300 p-2 w-[260px] hover:scale-95 duration-200" onClick={clickHandler}>
                             Verify Pin  
                         </button>
+                        <div className="underline font-bold text-l cursor-pointer" onClick={ForgotPinHandler}>
+                            Forgot Pin ?    
+                        </div>
                     </div>
                 </div>              
             </div>

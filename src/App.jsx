@@ -16,6 +16,8 @@ import Transfer from './Components/Transfer';
 import {Toaster} from "react-hot-toast"
 import OtpVerification from './Components/OtpVerification';
 import ConfirmTransaction from './Components/ConfirmTransaction';
+import ForgotPin from './Components/ForgotPin';
+import ResetPin from './Components/ResetPin';
 function App() {
   const token = useRecoilValue(tokenAtom);
   const [user , setUser] = useRecoilState(userAtom);
@@ -52,6 +54,8 @@ function App() {
         <Route path='/transfer' element={<Transfer></Transfer>}></Route>
         <Route path='verification' element={<OtpVerification></OtpVerification>}></Route>
         <Route path='/verify' element={<ConfirmTransaction/>}></Route>
+        <Route path='forgot-pin' element={<ForgotPin/>}></Route>
+        <Route path='/reset-pin' element={<ResetPin/>}></Route>
       </Routes>
     </div>
   )
