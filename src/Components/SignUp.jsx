@@ -15,6 +15,10 @@ function SignUp(){
     const [signUpData , setSignUpData] = useState({});
     const [signUp , setSignUp] =  useRecoilState(signUpAtom);
     const [otpVerificationData , setotpVerificatonData]= useRecoilState(otpVerificationAtom);
+    const [showPassword , setShowPassword] = useState(false);
+    const [showConfirmPassword , setShowConfirmPassword] = useState(false);
+    const [showPin , setShowPin] = useState(false);
+    const [showConfirmPin , setShowConfirmPin] = useState(false);
     const naviagte  = useNavigate();
     const token = useRecoilValue(tokenAtom)
     const changeHandler = (e)=>{
@@ -69,8 +73,56 @@ function SignUp(){
                                 <input type="text" className=" p-1 border border-black text-center " placeholder="Mobile Number" onChange={changeHandler} name="MobileNumber"/>
                             </div>
                             <div className=" flex gap-5 items-center justify-around">
-                                <input type="text" className=" p-1 border border-black text-center" placeholder="Password" onChange={changeHandler} name="Password"/>
-                                <input type="text" className=" p-1 border border-black text-center" placeholder="Confirm Password" onChange={changeHandler} name="ConfirmPassword"/>
+                                <div className="flex relative">
+                                     <input type={showPassword ? `text` : `password`} className=" p-1 border border-black text-center" placeholder="Password" onChange={changeHandler} name="Password"/>
+                                     <div>
+                                        {
+                                            !showPassword ? (<IoEyeOutline className="cursor-pointer absolute left-[163px] top-[7px]" size={20} onClick={()=>{
+                                                setShowPassword(!showPassword);
+                                            }}></IoEyeOutline>) : (<IoEyeOffOutline className="cursor-pointer absolute left-[163px] top-[7px]" size={20}onClick={()=>{
+                                                setShowPassword(!showPassword);
+                                            }}></IoEyeOffOutline>)
+                                        }
+                                     </div>
+                                </div>
+                                <div className="flex relative">
+                                <input type={showConfirmPassword ? `text` : `password`} className=" p-1 border border-black text-center" placeholder="Confirm Password" onChange={changeHandler} name="ConfirmPassword"/>
+                                <div>
+                                        {
+                                            !showConfirmPassword ? (<IoEyeOutline className="cursor-pointer absolute left-[164px] top-[7px]" size={20} onClick={()=>{
+                                                setShowConfirmPassword(!showConfirmPassword )
+                                            }}></IoEyeOutline>) : (<IoEyeOffOutline className="cursor-pointer absolute left-[164px] top-[7px]" size={20} onClick={()=>{
+                                                setShowConfirmPassword(!showConfirmPassword)
+                                            }}></IoEyeOffOutline>)
+                                        }
+                                </div>
+                                </div>
+                            </div>
+                            <div className=" flex gap-5 items-center justify-around">
+                                <div className="flex relative"> 
+                                    <input type={showPin ? `text` : `password`} className=" p-1 border border-black text-center" placeholder="Transaction Pin" onChange={changeHandler} name="TPIN"/>
+                                    <div>
+                                        {
+                                            !showPin ? (<IoEyeOutline className="cursor-pointer absolute left-[163px] top-[7px]" size={20} onClick={()=>{
+                                                setShowPin(!showPin);
+                                            }}></IoEyeOutline>) : (<IoEyeOffOutline className="cursor-pointer absolute left-[163px] top-[7px]" size={20}onClick={()=>{
+                                                setShowPin(!showPin);
+                                            }}></IoEyeOffOutline>)
+                                        }
+                                     </div>
+                                </div>
+                                <div className=" flex relative">
+                                <input type={showConfirmPin ? `text1` : `password`} className=" p-1 border border-black text-center" placeholder="Confirm Pin" onChange={changeHandler} name="ConfirmTPIN"/>
+                                <div>
+                                        {
+                                            !showConfirmPin ? (<IoEyeOutline className="cursor-pointer absolute left-[163px] top-[7px]" size={20} onClick={()=>{
+                                                setShowConfirmPin(!showConfirmPin);
+                                            }}></IoEyeOutline>) : (<IoEyeOffOutline className="cursor-pointer absolute left-[163px] top-[7px]" size={20}onClick={()=>{
+                                                setShowConfirmPin(!showConfirmPin);
+                                            }}></IoEyeOffOutline>)
+                                        }
+                                </div>
+                                </div>
                             </div>
                         </div>
                     </form>
