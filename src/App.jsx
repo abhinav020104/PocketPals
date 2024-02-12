@@ -15,6 +15,7 @@ import TopUp from './Components/TopUp';
 import Transfer from './Components/Transfer';
 import {Toaster} from "react-hot-toast"
 import OtpVerification from './Components/OtpVerification';
+import ConfirmTransaction from './Components/ConfirmTransaction';
 function App() {
   const token = useRecoilValue(tokenAtom);
   const [user , setUser] = useRecoilState(userAtom);
@@ -50,6 +51,7 @@ function App() {
         <Route path='/topup' element={<TopUp/>}></Route>
         <Route path='/transfer' element={<Transfer></Transfer>}></Route>
         <Route path='verification' element={<OtpVerification></OtpVerification>}></Route>
+        <Route path='/verify' element={<ConfirmTransaction/>}></Route>
       </Routes>
     </div>
   )

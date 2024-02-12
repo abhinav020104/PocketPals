@@ -14,7 +14,7 @@ function NavBar(){
     return(
     <div className="  bg-slate-500 h-20  border-b-2 border-blue-100 flex items-center justify-center">
         <div className=" w-[90%] h-full flex items-center justify-between mx-auto">
-            <div className=" font-bold text-3xl text-white p-2 cursor-pointer"><a href="/">PayTm</a></div>
+            <div className=" font-bold text-3xl text-white p-2 cursor-pointer"><a href="/">PocketPals</a></div>
             <div>
                 {
                     token === null   && (

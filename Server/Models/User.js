@@ -24,6 +24,10 @@ const userSchema = new mongoose.Schema({
         type:Number,
         required:true,
     },
+    TransactionPin:{
+        type:Number,
+        required:true,
+    },
     token:{
         type:String,
     }
