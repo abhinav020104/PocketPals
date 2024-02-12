@@ -6,7 +6,7 @@ import { useRecoilState, useRecoilValue } from "recoil";
 import { signUpAtom, tokenAtom , otpVerificationAtom} from "../Store/Atoms/User";
 import toast from "react-hot-toast"
 import { RecaptchaVerifier, signInWithPhoneNumber } from "firebase/auth";
-import {auth} from "../firebase.config"
+import {auth} from "../../firebase.config"
 function SignUp(){
     const [signUpData , setSignUpData] = useState({});
     const [signUp , setSignUp] =  useRecoilState(signUpAtom);
