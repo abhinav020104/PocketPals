@@ -7,6 +7,10 @@ import { signUpAtom, tokenAtom , otpVerificationAtom} from "../Store/Atoms/User"
 import toast from "react-hot-toast"
 import { RecaptchaVerifier, signInWithPhoneNumber } from "firebase/auth";
 import {auth} from "../../firebase.config"
+import { IoEyeOffOutline } from "react-icons/io5";
+import { IoEyeOutline } from "react-icons/io5";
+import Lottie from "lottie-react"
+import signUpAnimation from "../assets/1707740516213.json"
 function SignUp(){
     const [signUpData , setSignUpData] = useState({});
     const [signUp , setSignUp] =  useRecoilState(signUpAtom);
@@ -46,7 +50,10 @@ function SignUp(){
             }
             <div className=" bg-slate-500 h-screen flex flex-col">
             <NavBar></NavBar>
-            <div className=" w-screen h-[60%] flex items-center justify-center bg-slate-500 overflow-y-hidden">
+            <div className=" w-screen h-[80%] flex items-center justify-center bg-slate-500 overflow-y-hidden mt-24 gap-24">
+                <div className="w-[500px]">
+                    <Lottie animationData={signUpAnimation}></Lottie>
+                </div>
                 <div className=" w-[500px] flex flex-col border-2 border-black gap-10  items-center shadow-xl bg-white rounded-xl">
                     <div className=" text-white bg-black flex items-center justify-center w-full shadow-xl">
                         <div className=" p-2 text-2xl">Sign Up</div>

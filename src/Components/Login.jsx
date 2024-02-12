@@ -6,6 +6,8 @@ import NavBar from "./NavBar";
 import {useNavigate} from "react-router-dom"
 import {Navigate}  from "react-router-dom"
 import toast from "react-hot-toast"
+import Lottie from "lottie-react"
+import loginAnimation from "../assets/1707741206328.json"
 const Login = () => {   
     const setUser = useSetRecoilState(userAtom);
     const setToken = useSetRecoilState(tokenAtom);
@@ -47,6 +49,9 @@ const Login = () => {
             <div className=" bg-slate-500 h-screen ">
             <NavBar></NavBar>
             <div className=" flex items-center justify-center w-screen h-[90%] bg-slate-500 ">
+                <div className="w-[500px]">
+                    <Lottie animationData={loginAnimation}></Lottie>
+                </div>
                 <div className="flex border-2 border-black w-[400px] flex-col gap-10 shadow-xl bg-white rounded-xl">
                     <div className=" bg-black text-white flex items-center justify-center shadow-xl">
                         <div className=" p-2 text-2xl">Login</div>
@@ -54,7 +59,7 @@ const Login = () => {
                     <form>
                         <div className="flex flex-col gap-3 p-3">
                             <div className=" flex justify-between">
-                                <div>UserName</div>
+                                <div>UserName</div> 
                                 <input type="text" className=" border-black border w-[70%] p-1" name="UserName" onChange={changeHandler}/>
                             </div>
                             <div className=" flex justify-between">
