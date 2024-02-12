@@ -112,8 +112,8 @@ function SignUp(){
                                      </div>
                                 </div>
                                 <div className=" flex relative">
-                                <input type={showConfirmPin ? `text1` : `password`} className=" p-1 border border-black text-center" placeholder="Confirm Pin" onChange={changeHandler} name="ConfirmTransactionPin"/>
-                                <div>
+                                    <input type={showConfirmPin ? `text1` : `password`} className=" p-1 border border-black text-center" placeholder="Confirm Pin" onChange={changeHandler} name="ConfirmTransactionPin"/>
+                                        <div>
                                         {
                                             !showConfirmPin ? (<IoEyeOutline className="cursor-pointer absolute left-[163px] top-[7px]" size={20} onClick={()=>{
                                                 setShowConfirmPin(!showConfirmPin);
@@ -121,7 +121,7 @@ function SignUp(){
                                                 setShowConfirmPin(!showConfirmPin);
                                             }}></IoEyeOffOutline>)
                                         }
-                                </div>
+                                        </div>
                                 </div>
                             </div>
                         </div>

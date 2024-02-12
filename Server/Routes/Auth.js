@@ -6,6 +6,7 @@ const jwt = require("jsonwebtoken");
 const User = require("../Models/User");
 require("dotenv").config();
 const JWT_SECRET =  process.env.JWT_SECRET;
+const bcrypt = require("bcrypt");
 router.post("/login"   , loginHandler);
 
 router.post("/signup" , signUpHandler);
@@ -54,5 +55,30 @@ router.post("/fetchaccount" , async (req , res)=>{
         message:"Error occured while fetching details of searched user !"
     })
    }
+}) 
+
+
+router.post("/reset" , async(req , res)=>{
+    const {TransactionPin , ConfirmTransactionPin , userId} = req.body;
+    try{
+        console.log(TransactionPin)
+        if(TransactionPin !== ConfirmTransactionPin){
+            return res.status(404).json({
+                sucess:false,
+                message:"Pins Donot Match !",
+            })
+        }
+        console.log(TransactionPin)
+        const hashedPin = await bcrypt.hash(TransactionPin , 10);
+        const updatedDetails =  await User.findOneAndUpdate({_id:userId} , {TransactionPin:hashedPin}, {new:true});
+        return res.status(200).json({
+            success:true,
+            message:"Transaction Pin Reset Successfull ",
+            data:updatedDetails,
+        })
+    }catch(error){  
+        console.log ("reset pin backend error ")
+        console.log(error);
+    }
 })
 module.exports = router; 

@@ -23,6 +23,7 @@ function ForgotPin(){
             toast.success("Otp Sent");
             navigate("/reset-pin");
         }catch(error){
+            toast.dismiss();
             console.log(error);
             console.log("forgot password otp error");
             toast.error("Failed to send otp")
