@@ -17,7 +17,7 @@ router.post("/balance" , async(req , res)=>{
 router.post("/transfer", async (req, res) => {
     const session = await mongoose.startSession();
     session.startTransaction();
-    const { amount , to , userId } = req.body;
+    const { amount , to , userId , TransactionPin} = req.body;
     const account = await Account.findOne({ userId: userId }).session(session);
     if (!account || account.Balance < amount) {
         await session.abortTransaction();
@@ -32,14 +32,21 @@ router.post("/transfer", async (req, res) => {
             message: "Invalid account"
         });
     }
-    const updatedDetails = await Account.findOneAndUpdate({ userId: userId }, { $inc: { Balance: -amount } } , { new : true }).session(session);
-    await Account.updateOne({ userId: to }, { $inc: { Balance: amount } } , { new : true }).session(session);
-    await session.commitTransaction();
-    res.status(200).json({
-        success:true,
-        message:"Amount transfered sucessfully !",
-        data:updatedDetails,
-    })
+    if(await bcrypt.compare(TransactionPin , userDetails.TransactionPin)){
+        const updatedDetails = await Account.findOneAndUpdate({ userId: userId }, { $inc: { Balance: -amount } } , { new : true }).session(session);
+        await Account.updateOne({ userId: to }, { $inc: { Balance: amount } } , { new : true }).session(session);
+        await session.commitTransaction();
+        res.status(200).json({
+            success:true,
+            message:"Amount transfered sucessfully !",
+            data:updatedDetails,
+        })
+    }else{
+        return res.status(404).json({
+            success:false,
+            message:"Invalid Transaction Pin",
+        })
+    }
 });
 
 router.post("/search" , async(req , res)=>{

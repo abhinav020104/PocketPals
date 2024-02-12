@@ -8,10 +8,8 @@ import axios from "axios"
 import toast from "react-hot-toast"
 const Transfer = () => {
     const [PaymentData, setPaymentData] = useRecoilState(PaymentAtom);
-    const [amountValue , setAmountValue] =  useState("");
-    const [account , setAccount] = useRecoilState(AccountAtom);
-    const user = useRecoilValue(userAtom);
     const navigate = useNavigate();
+    const [amountValue , setAmountValue] = useState("")
         // console.log(user)
         console.log(PaymentData);
     useEffect(() => {
@@ -20,25 +18,12 @@ const Transfer = () => {
         }
     }, [PaymentData]);
 
-    const clickHandler = async() => {
-       try{     
-        const response = await axios({
-            method:"post",
-            url:"https://paytm-backend-bv0y.onrender.com/api/v1/account/transfer",
-            data:{
-                userId:user.AccountDetails.userId,
-                to:PaymentData.data.data.AccountDetails.userId,
-                amount:amountValue,
-            },
+    const clickHandler = () => {
+        setPaymentData({
+            ...PaymentData,
+            amountValue:amountValue,
         })
-        toast.success("Transfer Successfull");
-        setAccount(response.data.data);
-        navigate("/");
-       }catch(error){
-        toast.error(error.response.data.message)
-        console.log(error);
-        console.log("error while transferring funds");
-       }
+        navigate("/verify");
     };
 
     const changeHandler = (e)=>{
