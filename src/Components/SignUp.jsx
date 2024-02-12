@@ -44,9 +44,9 @@ function SignUp(){
                     naviagte("/dashboard/profile")
                 )
             }
-            <div className=" bg-slate-500 h-screen">
+            <div className=" bg-slate-500 h-screen flex flex-col">
             <NavBar></NavBar>
-            <div className=" w-screen h-[80%] flex items-center justify-center bg-slate-500 overflow-y-hidden">
+            <div className=" w-screen h-[60%] flex items-center justify-center bg-slate-500 overflow-y-hidden">
                 <div className=" w-[500px] flex flex-col border-2 border-black gap-10  items-center shadow-xl bg-white rounded-xl">
                     <div className=" text-white bg-black flex items-center justify-center w-full shadow-xl">
                         <div className=" p-2 text-2xl">Sign Up</div>
@@ -71,8 +71,9 @@ function SignUp(){
                         <button className="border-2 w-[150px] border-black text-center text-white bg-slate-400 p-1 mb-6 " onClick={signUpHandler}>Sign Up</button>
                     </div>
                 </div>
-                <div id="recaptcha"></div>
             </div>
+            <div id="recaptcha" className="mt-[-50px] mx-auto rounded-md"></div>
+
         </div>
         </div>
     )
