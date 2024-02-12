@@ -8,15 +8,14 @@ dotenv.config();
 // Your web app's Firebase configuration
 // For Firebase JS SDK v7.20.0 and later, measurementId is optional
 const firebaseConfig = {
-    apiKey: import.meta.env.VITE_FIREBASE_API_KEY,
-    authDomain: import.meta.env.VITE_FIREBASE_AUTH_DOMAIN,
-    projectId: import.meta.env.VITE_FIREBASE_PROJECT_ID,
-    storageBucket: import.meta.env.VITE_FIREBASE_STORAGE_BUCKET,
-    messagingSenderId: import.meta.env.VITE_FIREBASE_MESSAGING_SENDER_ID,
-    appId: import.meta.env.VITE_FIREBASE_APP_ID,
-    measurementId: import.meta.env.VITE_FIREBASE_MEASUREMENT_ID
+  apiKey: "AIzaSyDfFFxPdSuibwltxXKBXWzgtktWY1N7qwM",
+  authDomain: "paytm-60846.firebaseapp.com",
+  projectId: "paytm-60846",
+  storageBucket: "paytm-60846.appspot.com",
+  messagingSenderId: "947876174398",
+  appId: "1:947876174398:web:6bed77484e93a3ec400f6f",
+  measurementId: "G-SPCTLMB1ED"
 };
-
 
 // Initialize Firebase
 const app = initializeApp(firebaseConfig);
