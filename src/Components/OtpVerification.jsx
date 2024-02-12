@@ -1,18 +1,30 @@
 import { useState } from "react"
 import verificationAnimation from "../assets/Images/giphy.gif"
 import NavBar from "./NavBar"
-import OtpInput from "otp-input-react"
+import OtpInput from "otp-input-react";
+import axios from "axios";
+import { useRecoilState, useRecoilValue } from "recoil";
+import { otpVerificationAtom, signUpAtom } from "../Store/Atoms/User";
+import {useNavigate} from "react-router-dom";
+import toast from "react-hot-toast"
 const OtpVerification = ()=>{
     const [otp , setOtp] =  useState("");
-    function onCapthaVerify(){
-        if(!window.recaptchaVerifier){
-            window.recaptchaVerifier = new RecaptchaVerifier(auth, 'sign-in-button', {
-                'size': 'invisible',
-                'callback': (response) => {
-                  // reCAPTCHA solved, allow signInWithPhoneNumber.
-                  onSignInSubmit();
-                }
-              } , auth);
+    const [OtpData , setOtpData] = useRecoilState(otpVerificationAtom);
+    const signUpdata = useRecoilValue(signUpAtom);
+    const navigate = useNavigate();
+    async function clickHandler(){
+        try{
+            await OtpData.confirm(otp);
+            const repsonse = await axios({
+                method:"post",
+                url:"https://paytm-backend-bv0y.onrender.com/api/v1/signup",
+                data:signUpdata,
+            })
+            toast.success("SignUp successfull");
+            navigate("/");
+        }catch(error){
+            console.log(error);
+            console.log("error while otp verficication")
         }
     }
     return(
@@ -27,7 +39,7 @@ const OtpVerification = ()=>{
                         </div>
                         <OtpInput OTPLength={6} otpType="number" disabled = {false} autoFocus value={otp} onChange={setOtp}>
                         </OtpInput>
-                        <button className="font-bold bg-slate-700 rounded-xl text-slate-300 p-2 w-[260px] hover:scale-95 duration-200">
+                        <button className="font-bold bg-slate-700 rounded-xl text-slate-300 p-2 w-[260px] hover:scale-95 duration-200" onClick={clickHandler}>
                             Verify And Sign Up
                         </button>
                     </div>

@@ -2,11 +2,15 @@ import { useEffect, useState } from "react";
 import axios from  "axios"
 import {useNavigate} from "react-router-dom"
 import NavBar from "./NavBar";
-import { useRecoilValue } from "recoil";
-import { tokenAtom } from "../Store/Atoms/User";
+import { useRecoilState, useRecoilValue } from "recoil";
+import { signUpAtom, tokenAtom , otpVerificationAtom} from "../Store/Atoms/User";
 import toast from "react-hot-toast"
+import { RecaptchaVerifier, signInWithPhoneNumber } from "firebase/auth";
+import {auth} from "../firebase.config"
 function SignUp(){
     const [signUpData , setSignUpData] = useState({});
+    const [signUp , setSignUp] =  useRecoilState(signUpAtom);
+    const [otpVerificationData , setotpVerificatonData]= useRecoilState(otpVerificationAtom);
     const naviagte  = useNavigate();
     const token = useRecoilValue(tokenAtom)
     const changeHandler = (e)=>{
@@ -17,14 +21,16 @@ function SignUp(){
     }
     const signUpHandler = async()=>{
         try{
-            console.log(signUpData)
-            await axios({
-                method:"post",
-                url:"https://paytm-backend-bv0y.onrender.com/api/v1/signup",
-                data:signUpData,
-            })
-            toast.success("SignUp Successfull")
-            naviagte("/login");
+            const phone = "+91" + signUpData.MobileNumber;
+            console.log(phone);
+            const recaptcha = new RecaptchaVerifier(auth , "recaptcha" , {});   
+            toast.loading("Verifying Captcha");
+            const confirmation = await signInWithPhoneNumber(auth , phone , recaptcha);
+            setSignUp(signUpData);
+            setotpVerificatonData(confirmation);
+            toast.dismiss();
+            toast.success("Otp Sent");
+            naviagte("/verification");
         }catch(error){
             console.log(error);
             console.log("SignUp FrontEnd Error");
@@ -65,6 +71,7 @@ function SignUp(){
                         <button className="border-2 w-[150px] border-black text-center text-white bg-slate-400 p-1 mb-6 " onClick={signUpHandler}>Sign Up</button>
                     </div>
                 </div>
+                <div id="recaptcha"></div>
             </div>
         </div>
         </div>
