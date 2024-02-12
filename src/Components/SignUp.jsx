@@ -54,7 +54,7 @@ function SignUp(){
             }
             <div className=" bg-slate-500 h-screen flex flex-col">
             <NavBar></NavBar>
-            <div className=" w-screen h-[80%] flex items-center justify-center bg-slate-500 overflow-y-hidden mt-24 gap-24">
+            <div className=" w-screen h-[60%] flex items-center justify-center bg-slate-500 overflow-y-hidden mt-24 gap-24">
                 <div className="w-[500px]">
                     <Lottie animationData={signUpAnimation}></Lottie>
                 </div>
