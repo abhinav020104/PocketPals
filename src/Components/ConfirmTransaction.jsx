@@ -32,6 +32,7 @@ function ConfirmTransaction () {
             setAccount(response.data.data);
             navigate("/");
         }catch(error){
+            toast.dismiss();
             toast.error(error.response.data.message);
             console.log("Error While Transfering Funds");
             console.log(error);

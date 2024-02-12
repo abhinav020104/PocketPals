@@ -6,6 +6,7 @@ import { useState } from "react";
 import { useRecoilValue } from "recoil";
 import { otpVerificationAtom } from "../Store/Atoms/User";
 import {useNavigate} from "react-router-dom"
+import toast from "react-hot-toast"
 function ResetPin(){
     const [otp , setOtp] =  useState("");
     const otpVerificationData = useRecoilValue(otpVerificationAtom);
@@ -15,9 +16,10 @@ function ResetPin(){
             toast.loading("Verifying OTP");
             await otpVerificationData.confirm(otp);
             toast.dismiss();
-            toast.sucess("OTP Verified Successfully ");
+            toast.success("OTP Verified Successfully ");
             navigate("/set-pin");
         }catch(error){
+            toast.dismiss();
             console.log(error);
             toast.error("Failed to verify OTP");
             console.log("reset-pin error");
