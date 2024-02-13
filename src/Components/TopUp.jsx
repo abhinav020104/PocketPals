@@ -1,5 +1,5 @@
 import { useRecoilState, useRecoilValue } from "recoil";
-import { AccountAtom, tokenAtom } from "../Store/Atoms/User";
+import { AccountAtom, tokenAtom, userAtom } from "../Store/Atoms/User";
 import axios from "axios";
 import NavBar from "./NavBar";
 import { useState } from "react";
@@ -9,6 +9,7 @@ import toast from "react-hot-toast";
 const TopUp = () => {
     const token = useRecoilValue(tokenAtom);
     const [account, setAccount] = useRecoilState(AccountAtom);
+    const[user , setUser] = useRecoilState(userAtom);
     const [topUpdata, setTopUpdata] = useState({});
     const navigate = useNavigate();
 
@@ -24,7 +25,6 @@ const TopUp = () => {
                 }
             });
             console.log(order);
-
             var options = {
                 key: "rzp_test_QVPFTAZ7OOAQ1V",
                 amount: topUpdata.amount*100, 
@@ -51,9 +51,11 @@ const TopUp = () => {
                     })
                     toast.dismiss();
                     toast.success("Top Up successfull !");
-                    setAccount(updatedBalance);
+                    setAccount(updatedBalance.data.data);
+                    // console.log(updatedBalance);
+                    setUser(updatedBalance.data.updatedUser);
                     navigate("/");
-                    console.log(validateRes);
+                    // console.log(validateRes);
                     }catch(error){
                         toast.dismiss();
                         console.log(error);

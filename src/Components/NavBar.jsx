@@ -32,8 +32,11 @@ function NavBar(){
                             </div>
                             <div className=" text-white flex gap-2">
                                 <button className=" border-2 border-slate-600 px-[16px] py-[8px] text-center rounded-lg bg-slate-800 hover:scale-95 transition-all duration-100" onClick={()=>{
-                                    navigate("/dashboard/profile")
-                                }}>Dashboard</button>
+                                    navigate("/transactions")
+                                }}>Transactions</button>
+                                <button className=" border-2 border-slate-600 px-[16px] py-[8px] text-center rounded-lg bg-slate-800 hover:scale-95 transition-all duration-100" onClick={()=>{
+                                    navigate("/profile")
+                                }}>Profile</button>
                                 <button className=" border-2 border-slate-600 px-[16px] py-[8px] text-center rounded-lg bg-slate-800 hover:scale-95 transition-all duration-100" onClick={clickHandler}>Logout</button>      
                             </div>
                         </div>

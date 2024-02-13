@@ -28,6 +28,9 @@ const userSchema = new mongoose.Schema({
         type:String,
         required:true,
     },
+    Transactions:[{
+        type:String,
+    }],
     token:{
         type:String,
     }

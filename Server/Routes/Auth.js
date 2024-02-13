@@ -81,4 +81,19 @@ router.post("/reset" , async(req , res)=>{
         console.log(error);
     }
 })
+router.post("/fetchtransactions" , async(req , res)=>{
+    const {userId} =  req.body;
+    try{
+        const userDetails = await User.findOne({_id:userId});
+        console.log(userDetails.Transactions);
+        return res.status(200).json({
+            success:true,
+            message:"Transactions fetched successfully !",
+            data:userDetails.Transactions,
+        })
+    }catch(error){
+        console.log(error);
+        console.log("failed to fetch transactions !");
+    }
+})
 module.exports = router; 

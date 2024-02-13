@@ -49,7 +49,7 @@ function SignUp(){
         <div>
             {
                 token !== null &&(
-                    naviagte("/dashboard/profile")
+                    naviagte("/profile")
                 )
             }
             <div className=" bg-slate-500 h-screen flex flex-col">

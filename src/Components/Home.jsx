@@ -56,13 +56,13 @@ function Home(){
     }
     return(
         <div>
-            <div className="w-screen bg-slate-500 min-h-screen flex flex-col">
+            <div className="w-screen bg-slate-500 h-screen flex flex-col">
                 <NavBar></NavBar>
                 <div className="w-11/12 mx-auto mt-2 flex flex-col ">
                     <div className="">
                         {token !== null &&(
                             <div>
-                                <div className="flex text-white text-2xl font-bold mb-[100px] items-center gap-4">
+                                <div className="flex text-white text-2xl font-bold  items-center gap-4">
                                     {`Balance : ${account.Balance} ₹`} 
                                     <div>
                                         <button className=" border-2 border-slate-600 p-1 text-center rounded-lg bg-slate-800 hover:scale-95 transition-all duration-100 w-[150px]" onClick={clickHandler}>TopUp</button>
@@ -76,12 +76,14 @@ function Home(){
 
                         )}
                     </div>
-                    <div className="w-full flex items-center justify-center ">
-                        <div >
+                    <div className="w-full">
+                        <div>
                             {
                                 loading === true && (
-                                    <div  className="mt-16">
-                                        loading
+                                    <div  className="w-full flex  mt-16 h-[50px] border-[1px] border-black items-center justify-center rounded-md">    
+                                        <div className="text-xl text-white font-bold">
+                                            Loading....
+                                        </div>
                                     </div>
                                 )
                             }
@@ -89,7 +91,7 @@ function Home(){
                         <div className="w-full">
                         {
                             searchVisible === true &&(
-                                <div className="w-full flex  mt-16 h-[50px] border-[1px] border-black items-center justify-around rounded-md">
+                                <div className="w-full flex  mt-8 h-[50px] border-[1px] border-black items-center justify-around rounded-md">
                                     <div className=" flex gap-3 text-white font-bold font-xl">
                                         <div>Frist Name : </div>
                                         <div>
@@ -124,7 +126,7 @@ function Home(){
                         }
                         {
                             notFound === true && (
-                                <div className="w-full flex  mt-16 h-[50px] border-[1px] border-black items-center justify-around rounded-md">
+                                <div className="w-full flex  mt-8 h-[50px] border-[1px] border-black items-center justify-around rounded-md">
                                     <div className="text-white font-bold text-xl">
                                         No User Found
                                     </div>
@@ -133,7 +135,7 @@ function Home(){
                         }
                         </div>
                     </div>
-                    <div className="flex h-full w-full items-center justify-center mt-[150px]">
+                    <div className="flex h-full w-full items-center justify-center mt-[30px]">
                              <img src={homeAnimation} className="w-[500px] "/>
                     </div>
                 </div>

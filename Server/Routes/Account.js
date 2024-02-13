@@ -22,16 +22,25 @@ router.post("/transfer", async (req, res) => {
     const session = await mongoose.startSession();
     session.startTransaction();
     const { amount , to , userId , TransactionPin} = req.body;
+    
     const account = await Account.findOne({ userId: userId }).session(session);
     const userDetails = await User.findOne({_id:userId});
-    console.log(userDetails); 
-    if (!account || account.Balance < amount) {
-        await session.abortTransaction();
-        return res.status(400).json({
-            message: "Insufficient balance"
-        });
-    }
-    const toAccount = await Account.findOne({ userId: to }).session(session);
+    console.log(userDetails);
+    var currentdate = new Date();
+        var datetime = currentdate.getDate() + "/" + (currentdate.getMonth()+1) 
+        + "/" + currentdate.getFullYear() + " @ " 
+        + currentdate.getHours() + ":" 
+        + currentdate.getMinutes() + ":" + currentdate.getSeconds();
+        const remessage = datetime + ` : ${amount} Received from ${userDetails.MobileNumber} `
+        if (!account || account.Balance < amount) {
+            await session.abortTransaction();
+            return res.status(400).json({
+                message: "Insufficient balance"
+            });
+        }
+        const toAccount = await Account.findOne({ userId: to }).session(session);
+        const toUser  = await User.findOne({_id:to});
+        const semessage = datetime + ` : ${amount} Sent to ${toUser.MobileNumber} `
     if (!toAccount) {
         await session.abortTransaction();
         return res.status(400).json({
@@ -40,6 +49,8 @@ router.post("/transfer", async (req, res) => {
     }
     if(await bcrypt.compare(TransactionPin , userDetails.TransactionPin)){
         const updatedDetails = await Account.findOneAndUpdate({ userId: userId }, { $inc: { Balance: -amount } } , { new : true }).session(session);
+        const updatedRecieverDetails = await User.findOneAndUpdate({_id:to} , {$push:{Transactions:remessage}} , {new : true});
+        const updatedSenderDetails = await User.findOneAndUpdate({_id:userId} , {$push:{Transactions:semessage}} , {new : true});
         await Account.updateOne({ userId: to }, { $inc: { Balance: amount } } , { new : true }).session(session);
         await session.commitTransaction();
         res.status(200).json({
@@ -83,6 +94,13 @@ router.put("/topup", async (req, res) => {
     console.log(amount);
     try {
         const AccountDetails = await Account.findOne({ userId });
+        var currentdate = new Date();
+        var datetime = currentdate.getDate() + "/" + (currentdate.getMonth()+1) 
+        + "/" + currentdate.getFullYear() + " @ " 
+        + currentdate.getHours() + ":" 
+        + currentdate.getMinutes() + ":" + currentdate.getSeconds();
+        const message = datetime + ` : ${amount} Rs Top Up Successfull !`
+        console.log(message);
         if (!AccountDetails) {
             return res.status(400).json({
                 success: false,
@@ -94,11 +112,13 @@ router.put("/topup", async (req, res) => {
         const UpdatedDetails = await Account.findOneAndUpdate(
             { userId }, { Balance : total} , {new:true} 
         );
-        // console.log(UpdatedDetails);
+        const updatedUser = await User.findOneAndUpdate({_id:userId} , {$push: {Transactions:message}}, {new:true})
+        console.log(updatedUser.Transactions);
         return res.status(200).json({
             success: true,
             message: "Top Up Successful!",
             data: UpdatedDetails,
+            updatedUser
         });
     } catch (error) {
         console.log(error);

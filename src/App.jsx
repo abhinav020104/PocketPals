@@ -8,8 +8,6 @@ import { userAtom , tokenAtom , AccountAtom } from './Store/Atoms/User';
 import { useEffect } from 'react';
 import axios from  "axios";
 import Profile from './Components/Profile';
-import ProtectedRoute from './Components/ProtectedRoute';
-import Dashboard from './Components/Dashboard';
 import Transactions from './Components/Transactions';
 import TopUp from './Components/TopUp';
 import Transfer from './Components/Transfer';
@@ -39,18 +37,15 @@ function App() {
   }
   useEffect(()=>{
     fetchData();
-  },[Account]);
+  },[]);
   return (
-    <div>
+    <div className=' overflow-hidden '>
       <Toaster></Toaster>
       <Routes>
         <Route path = '/' element = {<Home></Home>} ></Route>
         <Route path='/login' element = {<Login/>}></Route>
         <Route path='/signup' element = {<SignUp/>}></Route>
-        <Route path='/dashboard' element={<ProtectedRoute><Dashboard/></ProtectedRoute>}>
-          <Route path='/dashboard/profile' element={<Profile/>}></Route>
-          <Route path='/dashboard/transactions' element={<Transactions/>}></Route>
-        </Route>
+        <Route path='/profile' element={<Profile/>}></Route>
         <Route path='/topup' element={<TopUp/>}></Route>
         <Route path='/transfer' element={<Transfer></Transfer>}></Route>
         <Route path='verification' element={<OtpVerification></OtpVerification>}></Route>
@@ -58,6 +53,7 @@ function App() {
         <Route path='forgot-pin' element={<ForgotPin/>}></Route>
         <Route path='/reset-pin' element={<ResetPin/>}></Route>
         <Route path='/set-pin' element={<SetPin/>}></Route>
+        <Route path='transactions' element={<Transactions/>}></Route>
       </Routes>
     </div>
   )
