@@ -16,7 +16,7 @@ const TopUp = () => {
         try {
             const order = await axios({
                 method: "post",
-                url: "http://localhost:5000/api/v1/account/order",
+                url: "https://paytm-backend-bv0y.onrender.com/api/v1/account/order",
                 data: {
                     amount: topUpdata.amount*100,
                     currency: "INR",
@@ -39,14 +39,14 @@ const TopUp = () => {
                     console.log(response);
                     const validateRes = await axios({
                         method:"post",
-                        url:"http://localhost:5000/api/v1/account/validate",
+                        url:"https://paytm-backend-bv0y.onrender.com/api/v1/account/validate",
                         data:response
                     }
                     );
                     toast.loading("Top Up In Process");
                     const updatedBalance = await axios({
                         method:"put",
-                        url:"http://localhost:5000/api/v1/account/topup",
+                        url:"https://paytm-backend-bv0y.onrender.com/api/v1/account/topup",
                         data:topUpdata,
                     })
                     toast.dismiss();
