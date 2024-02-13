@@ -72,7 +72,7 @@ function SignUp(){
                         <div className=" flex flex-col gap-5">
                             <div className="flex justify-between items-center">
                                 <input type="text" className=" p-1 border border-black text-center " placeholder="User Name" onChange={changeHandler} name="UserName"/>
-                                <input type="text" className=" p-1 border border-black text-center " placeholder="Mobile Number" onChange={changeHandler} name="MobileNumber"/>
+                                <input type="text" className=" p-1 border border-black text-center " placeholder="Mobile Number" onChange={changeHandler} name="MobileNumber" maxLength={10}/>
                             </div>
                             <div className=" flex gap-5 items-center justify-around">
                                 <div className="flex relative">
@@ -88,7 +88,7 @@ function SignUp(){
                                      </div>
                                 </div>
                                 <div className="flex relative">
-                                <input type={showConfirmPassword ? `text` : `password`} className=" p-1 border border-black text-center" placeholder="Confirm Password" onChange={changeHandler} name="ConfirmPassword"/>
+                                <input type={showConfirmPassword ? `text` : `password`} className=" p-1 border border-black text-center" placeholder="Confirm Password" onChange={changeHandler} name="ConfirmPassword" />
                                 <div>
                                         {
                                             !showConfirmPassword ? (<IoEyeOutline className="cursor-pointer absolute left-[164px] top-[7px]" size={20} onClick={()=>{
@@ -102,7 +102,7 @@ function SignUp(){
                             </div>
                             <div className=" flex gap-5 items-center justify-around">
                                 <div className="flex relative"> 
-                                    <input type={showPin ? `text` : `password`} className=" p-1 border border-black text-center" placeholder="Transaction Pin" onChange={changeHandler} name="TransactionPin"/>
+                                    <input type={showPin ? `text` : `password`} className=" p-1 border border-black text-center" placeholder="Transaction Pin" onChange={changeHandler} name="TransactionPin" minLength={4} maxLength={4}/>
                                     <div>
                                         {
                                             !showPin ? (<IoEyeOutline className="cursor-pointer absolute left-[163px] top-[7px]" size={20} onClick={()=>{
@@ -114,7 +114,7 @@ function SignUp(){
                                      </div>
                                 </div>
                                 <div className=" flex relative">
-                                    <input type={showConfirmPin ? `text1` : `password`} className=" p-1 border border-black text-center" placeholder="Confirm Pin" onChange={changeHandler} name="ConfirmTransactionPin"/>
+                                    <input type={showConfirmPin ? `text1` : `password`} className=" p-1 border border-black text-center" placeholder="Confirm Pin" onChange={changeHandler} name="ConfirmTransactionPin" minLength={4} maxLength={4}/>
                                         <div>
                                         {
                                             !showConfirmPin ? (<IoEyeOutline className="cursor-pointer absolute left-[163px] top-[7px]" size={20} onClick={()=>{
