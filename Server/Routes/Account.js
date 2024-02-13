@@ -4,6 +4,9 @@ const router = express.Router();
 const Account = require("../Models/Account");
 const User = require("../Models/User");
 const bcrypt = require("bcrypt");
+const Razorpay =  require("razorpay");
+const crypto = require("crypto")
+require("dotenv").config();
 router.post("/balance" , async(req , res)=>{
     const {id} = req.body;
     const details = await User.findOne({_id:id}).populate("AccountDetails");
@@ -103,5 +106,50 @@ router.put("/topup", async (req, res) => {
         // alert("Failed to Top up !");
     }
 });
+
+
+router.post("/order" , async(req , res) =>{
+    try{
+        const razorpay = new Razorpay({
+            key_id:process.env.key_id,
+            key_secret:process.env.key_secret,
+        })
+        const options = req.body;
+        const order =  await razorpay.orders.create(options);
+        if(!order){
+            return res.status(404).json({
+                success:false,
+                message:"Failed to create order !",
+            })
+        }
+        return res.status(200).json({
+            success:true,
+            message:"Order created successfully !",
+            data:order,
+        })        
+    }catch(error){
+        console.log(error);
+        console.log("razorpay order creation failed !");
+    }
+})
+
+router.post("/validate", async (req, res) => {
+    const { razorpay_order_id, razorpay_payment_id, razorpay_signature } =
+      req.body;
+  
+    const sha = crypto.createHmac("sha256", process.env.key_secret);
+    //order_id + "|" + razorpay_payment_id
+    sha.update(`${razorpay_order_id}|${razorpay_payment_id}`);
+    const digest = sha.digest("hex");
+    if (digest !== razorpay_signature) {
+      return res.status(400).json({ msg: "Transaction is not legit!" });
+    }
+  
+    res.json({
+      msg: "success",
+      orderId: razorpay_order_id,
+      paymentId: razorpay_payment_id,
+    });
+  });
 
 module.exports = router;

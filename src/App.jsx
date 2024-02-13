@@ -39,7 +39,7 @@ function App() {
   }
   useEffect(()=>{
     fetchData();
-  },[]);
+  },[Account]);
   return (
     <div>
       <Toaster></Toaster>

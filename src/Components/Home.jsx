@@ -51,7 +51,7 @@ function Home(){
             console.log("Search error front end !");
         }
     }
-    const clickHandler = ()=>{
+    const clickHandler = async()=>{
         navigate("/topup");
     }
     return(
@@ -63,7 +63,7 @@ function Home(){
                         {token !== null &&(
                             <div>
                                 <div className="flex text-white text-2xl font-bold mb-[100px] items-center gap-4">
-                                    {`Balance : ${account.Balance} $`} 
+                                    {`Balance : ${account.Balance} ₹`} 
                                     <div>
                                         <button className=" border-2 border-slate-600 p-1 text-center rounded-lg bg-slate-800 hover:scale-95 transition-all duration-100 w-[150px]" onClick={clickHandler}>TopUp</button>
                                     </div>
