@@ -6,7 +6,8 @@ import { useEffect, useState } from "react";
 import { useNavigate } from "react-router-dom";
 import axios from "axios";
 import Lottie from "lottie-react";
-import transactionAnimation from "../assets/1707738011983.json"
+import transactionAnimation from "../assets/1707738011983.json";
+
 function Transactions() {
     const user = useRecoilValue(userAtom);
     const navigate = useNavigate();
@@ -32,16 +33,20 @@ function Transactions() {
             <NavBar />
             <div className="h-full">
                 <div className="text-center font-bold text-white text-2xl mt-2">Your Transactions</div>
-                <div className="flex w-screen min-h-full items-center justify-center ">
+                <div className="flex w-screen min-h-full items-center justify-center">
                     <div className="w-[400px] h-[400px]">
                         <Lottie animationData={transactionAnimation}></Lottie>
                     </div>
-                    <div className="flex flex-col items-center justify-center h-[400px] gap-3 w-[600px] bg-emerald-500 rounded-md overflow-y-scroll p-2">
-                        {Transactions.map((transaction, index) => (
-                            <div key={index} className="text-white font-bold text-xl">
-                                {transaction}
-                            </div>
-                        ))}
+                    <div className={Transactions.length === 0 ? `flex flex-col items-center justify-center h-[400px] gap-3 w-[600px] bg-emerald-500 rounded-md overflow-y-scroll p-2` : `flex flex-col items-center h-[400px] gap-3 w-[600px] bg-emerald-500 rounded-md overflow-y-scroll p-2`}>
+                        {Transactions.length === 0 ? (
+                            <div className=" text-white text-xl font-bold">No transactions available</div>
+                        ) : (
+                            Transactions.map((transaction, index) => (
+                                <div key={index} className="text-white font-bold text-xl">
+                                    {transaction}
+                                </div>
+                            ))
+                        )}
                     </div>
                 </div>
             </div>

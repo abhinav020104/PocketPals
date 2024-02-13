@@ -26,12 +26,15 @@ router.post("/transfer", async (req, res) => {
     const account = await Account.findOne({ userId: userId }).session(session);
     const userDetails = await User.findOne({_id:userId});
     console.log(userDetails);
-    var currentdate = new Date();
-        var datetime = currentdate.getDate() + "/" + (currentdate.getMonth()+1) 
-        + "/" + currentdate.getFullYear() + " @ " 
-        + currentdate.getHours() + ":" 
-        + currentdate.getMinutes() + ":" + currentdate.getSeconds();
-        const remessage = datetime + ` : ${amount} Received from ${userDetails.MobileNumber} `
+    const ISTDateTime = new Date().toLocaleString("en-US", { timeZone: "Asia/Kolkata" , 
+        day: '2-digit',
+        month: '2-digit',
+        year: '2-digit',
+        hour: '2-digit',
+        minute: '2-digit',
+        second: '2-digit'
+        });
+        const remessage = ISTDateTime + ` : ${amount} Received from ${userDetails.MobileNumber} `
         if (!account || account.Balance < amount) {
             await session.abortTransaction();
             return res.status(400).json({
@@ -40,7 +43,7 @@ router.post("/transfer", async (req, res) => {
         }
         const toAccount = await Account.findOne({ userId: to }).session(session);
         const toUser  = await User.findOne({_id:to});
-        const semessage = datetime + ` : ${amount} Sent to ${toUser.MobileNumber} `
+        const semessage = ISTDateTime + ` : ${amount} Sent to ${toUser.MobileNumber} `
     if (!toAccount) {
         await session.abortTransaction();
         return res.status(400).json({
@@ -94,12 +97,15 @@ router.put("/topup", async (req, res) => {
     console.log(amount);
     try {
         const AccountDetails = await Account.findOne({ userId });
-        var currentdate = new Date();
-        var datetime = currentdate.getDate() + "/" + (currentdate.getMonth()+1) 
-        + "/" + currentdate.getFullYear() + " @ " 
-        + currentdate.getHours() + ":" 
-        + currentdate.getMinutes() + ":" + currentdate.getSeconds();
-        const message = datetime + ` : ${amount} Rs Top Up Successfull !`
+        const ISTDateTime = new Date().toLocaleString("en-US", { timeZone: "Asia/Kolkata" , 
+        day: '2-digit',
+        month: '2-digit',
+        year: '2-digit',
+        hour: '2-digit',
+        minute: '2-digit',
+        second: '2-digit'
+        });
+        const message = ISTDateTime + ` : ${amount} Rs Top Up Successfull `
         console.log(message);
         if (!AccountDetails) {
             return res.status(400).json({
