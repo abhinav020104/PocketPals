@@ -36,4 +36,6 @@ input{
   *:hover::-webkit-scrollbar-thumb {
     visibility: visible;
   }
-  
+*{
+    user-select: none;
+}
