@@ -8,12 +8,15 @@ import {Navigate}  from "react-router-dom"
 import toast from "react-hot-toast"
 import Lottie from "lottie-react"
 import loginAnimation from "../assets/1707741206328.json"
+import { IoEyeOffOutline } from "react-icons/io5";
+import { IoEyeOutline } from "react-icons/io5";
 const Login = () => {   
     const setUser = useSetRecoilState(userAtom);
     const setToken = useSetRecoilState(tokenAtom);
     const token = useRecoilValue(tokenAtom);
     const navigate = useNavigate();
     const [loginData , setLoginData] = useState({});
+    const [showPassword , setShowPassword] = useState(false);
     const changeHandler = (e)=>{
         setLoginData({
             ...loginData,
@@ -60,11 +63,22 @@ const Login = () => {
                         <div className="flex flex-col gap-3 p-3">
                             <div className=" flex justify-between">
                                 <div>UserName</div> 
-                                <input type="text" className=" border-black border w-[70%] p-1" name="UserName" onChange={changeHandler}/>
+                                <input type="text" className=" border-black border  p-1" name="UserName" placeholder="User Name" onChange={changeHandler}/>
                             </div>
                             <div className=" flex justify-between">
                                 <div>Password</div>
-                                <input type="text" className=" border-black border w-[70%] p-1" name="Password" onChange={changeHandler} />
+                                <div className="flex relative">
+                                    <input type={showPassword ? `text` : `password`} className=" border-black border  p-1" placeholder="Password" name="Password" onChange={changeHandler} />
+                                    <div>
+                                        {
+                                            !showPassword ? (<IoEyeOutline className="cursor-pointer absolute left-[163px] top-[7px]" size={20} onClick={()=>{
+                                                setShowPassword(!showPassword);
+                                            }}></IoEyeOutline>) : (<IoEyeOffOutline className="cursor-pointer absolute left-[163px] top-[7px]" size={20}onClick={()=>{
+                                                setShowPassword(!showPassword);
+                                            }}></IoEyeOffOutline>)
+                                        }
+                                     </div>
+                                </div>
                             </div>
                         </div>
                     </form>
