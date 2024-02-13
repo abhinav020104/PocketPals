@@ -40,6 +40,8 @@ function SignUp(){
             toast.success("Otp Sent");
             naviagte("/verification");
         }catch(error){
+            toast.dismiss();
+            naviagte("/");
             console.log(error);
             console.log("SignUp FrontEnd Error");
             toast.error("Sign Up Failed")
