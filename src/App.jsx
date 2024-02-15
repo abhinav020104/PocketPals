@@ -4,7 +4,7 @@ import Login from './Components/Login';
 import SignUp from './Components/SignUp';
 import Home from './Components/Home';
 import { useRecoilState , useRecoilValue  } from 'recoil';
-import { userAtom , tokenAtom , AccountAtom } from './Store/Atoms/User';
+import { userAtom , tokenAtom , AccountAtom  , loadingAtom} from './Store/Atoms/User';
 import { useEffect } from 'react';
 import axios from  "axios";
 import Profile from './Components/Profile';
@@ -17,21 +17,29 @@ import ConfirmTransaction from './Components/ConfirmTransaction';
 import ForgotPin from './Components/ForgotPin';
 import ResetPin from './Components/ResetPin';
 import SetPin from './Components/SetPin';
+import toast from "react-hot-toast";
 function App() {
   const token = useRecoilValue(tokenAtom);
   const [user , setUser] = useRecoilState(userAtom);
   const [Account , setAccount] =  useRecoilState(AccountAtom);
+  const [loading , setLoading] = useRecoilState(loadingAtom);
   const fetchData = async () =>{
     try{
+      toast.loading("fetching user details");
+      setLoading(true);
       const userDetails = await axios({
         method:"post",
         url:"https://paytm-backend-bv0y.onrender.com/api/v1/getUserDetails",
         data:{
           token:token
         }})
+        toast.dismiss();
+        setLoading(false);
+        toast.success("User Fetched ");
       setUser(userDetails.data.data);
       setAccount(userDetails.data.data.AccountDetails);
     }catch(error){
+      toast.dismiss();
       console.log(error);
     }
   }

@@ -1,5 +1,5 @@
 import { useRecoilState, useRecoilState_TRANSITION_SUPPORT_UNSTABLE, useRecoilValue } from "recoil";
-import { userAtom , tokenAtom, AccountAtom, PaymentAtom } from "../Store/Atoms/User";
+import { userAtom , tokenAtom, AccountAtom, PaymentAtom, loadingAtom } from "../Store/Atoms/User";
 import { Link } from "react-router-dom";
 import NavBar from "./NavBar";
 import { useState } from "react";
@@ -18,6 +18,7 @@ function Home(){
     const [notFound , setNotFound] = useState(false);
     const [searchBarValue , setSearchBarValue] = useState("");
     const navigate = useNavigate();
+    const userLoading = useRecoilValue(loadingAtom);
     const changeHandler = (e)=>{
         setSearchData({
             ...SearchData,
@@ -63,7 +64,7 @@ function Home(){
                         {token !== null &&(
                             <div>
                                 <div className="flex text-white text-2xl font-bold  items-center gap-4">
-                                    {`Balance : ${account.Balance} ₹`} 
+                                    {userLoading === false ?  `Balance : ${account.Balance} ₹` : `Fetching....`} 
                                     <div>
                                         <button className=" border-2 border-slate-600 p-1 text-center rounded-lg bg-slate-800 hover:scale-95 transition-all duration-100 w-[150px]" onClick={clickHandler}>TopUp</button>
                                     </div>

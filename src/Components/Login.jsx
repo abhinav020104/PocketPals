@@ -1,5 +1,5 @@
-import { userAtom ,tokenAtom } from "../Store/Atoms/User"
-import { useRecoilState, useRecoilValue, useSetRecoilState } from "recoil";
+import { userAtom ,tokenAtom, AccountAtom } from "../Store/Atoms/User"
+import {  useRecoilValue, useSetRecoilState } from "recoil";
 import { useState } from "react";
 import axios from "axios"
 import NavBar from "./NavBar";
@@ -13,6 +13,7 @@ import { IoEyeOutline } from "react-icons/io5";
 const Login = () => {   
     const setUser = useSetRecoilState(userAtom);
     const setToken = useSetRecoilState(tokenAtom);
+    const setAccount = useSetRecoilState(AccountAtom);
     const token = useRecoilValue(tokenAtom);
     const navigate = useNavigate();
     const [loginData , setLoginData] = useState({});
@@ -33,6 +34,7 @@ const Login = () => {
                 localStorage.setItem("token", JSON.stringify(response.data.data.token));
                 setUser(response.data.data);
                 setToken(response.data.data.token);
+                setAccount(userDetails.data.data.AccountDetails);
                 toast.success("Login Successfull")
                 navigate("/");
         }catch(error){

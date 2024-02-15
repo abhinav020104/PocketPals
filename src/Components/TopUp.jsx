@@ -5,14 +5,14 @@ import NavBar from "./NavBar";
 import { useState } from "react";
 import { useNavigate, Navigate } from "react-router-dom";
 import toast from "react-hot-toast";
-
+import Lottie from "lottie-react";
+import topUpAnimation from "../assets/1708018634411.json"
 const TopUp = () => {
     const token = useRecoilValue(tokenAtom);
     const [account, setAccount] = useRecoilState(AccountAtom);
     const[user , setUser] = useRecoilState(userAtom);
     const [topUpdata, setTopUpdata] = useState({});
     const navigate = useNavigate();
-
     const clickHandler = async () => {
         try {
             const order = await axios({
@@ -52,10 +52,8 @@ const TopUp = () => {
                     toast.dismiss();
                     toast.success("Top Up successfull !");
                     setAccount(updatedBalance.data.data);
-                    // console.log(updatedBalance);
-                    setUser(updatedBalance.data.updatedUser);
+                    // setUser(updatedBalance.data.updatedUser);
                     navigate("/");
-                    // console.log(validateRes);
                     }catch(error){
                         toast.dismiss();
                         console.log(error);
@@ -74,6 +72,7 @@ const TopUp = () => {
             });
             rzp1.open();
         } catch (error) {
+            toast.dismiss();
             console.log(error);
             console.log("top up front end error !");
         }
@@ -94,7 +93,10 @@ const TopUp = () => {
             {token === null && <Navigate to="/login" />}
             <div className="h-screen flex flex-col">
                 <NavBar />
-                <div className="h-full bg-slate-500 w-full flex items-center justify-center text-white select-none">
+                <div className="h-full bg-slate-500 w-full flex items-center justify-center text-white select-none gap-24">
+                    <div>
+                        <Lottie animationData={topUpAnimation}></Lottie>
+                    </div>
                     <div className="w-[300px] flex flex-col border-black border-[1px] rounded-md shadow-2xl bg-slate-100 h-[200px] items-center justify-between gap-10">
                         <input
                             type="text"
@@ -102,6 +104,7 @@ const TopUp = () => {
                             placeholder="Enter Amount to TopUp"
                             onChange={changeHandler}
                             name="amount"
+                            minLength={1}
                         />
                         <button
                             className="border-2 border-slate-600 p-2 w-[100px] mb-14 text-center rounded-lg bg-slate-800 hover:scale-95 transition-all duration-100"

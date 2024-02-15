@@ -1,16 +1,20 @@
 import { useRecoilState, useRecoilValue } from "recoil";
-import { userAtom , tokenAtom } from "../Store/Atoms/User";
+import { userAtom , tokenAtom, loadingAtom, AccountAtom } from "../Store/Atoms/User";
 import { Link } from "react-router-dom";
 import {useNavigate} from "react-router-dom";
 function NavBar(){
     const navigate = useNavigate();
     const [user , setUser] = useRecoilState(userAtom);
     const [token , setToken] = useRecoilState(tokenAtom);
+    const [account , setAccount] = useRecoilState(AccountAtom);
     const clickHandler = ()=>{
-        setUser(null);
+        setUser({});
         setToken(null);
+        setAccount({});
         localStorage.clear();   
+        navigate("/");
     }
+    const loading = useRecoilValue(loadingAtom);
     return(
     <div className="  bg-slate-500 h-20  border-b-2 border-blue-100 flex items-center justify-center">
         <div className=" w-[90%] h-full flex items-center justify-between mx-auto">
@@ -28,7 +32,7 @@ function NavBar(){
                     token !== null  && (
                         <div className=" flex justify-between items-center gap-10">
                             <div className=" font-bold text-slate-200 text-[15px]">
-                                {`Welcome ! ${user.FirstName} ${user.LastName} `}
+                                {loading === false ? `Welcome ! ${user.FirstName} ${user.LastName} ` : `Fetching Details...`}
                             </div>
                             <div className=" text-white flex gap-2">
                                 <button className=" border-2 border-slate-600 px-[16px] py-[8px] text-center rounded-lg bg-slate-800 hover:scale-95 transition-all duration-100" onClick={()=>{

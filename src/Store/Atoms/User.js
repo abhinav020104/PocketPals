@@ -30,5 +30,10 @@ const otpVerificationAtom = atom({
     default:{},
 })
 
-export {userAtom , tokenAtom , AccountAtom , PaymentAtom , signUpAtom , otpVerificationAtom}
+const loadingAtom = atom({
+    key:"loadingAtom",
+    default : false
+}
+)
+export {userAtom , tokenAtom , AccountAtom , PaymentAtom , signUpAtom , otpVerificationAtom , loadingAtom}
 
