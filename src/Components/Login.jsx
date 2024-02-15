@@ -34,7 +34,7 @@ const Login = () => {
                 localStorage.setItem("token", JSON.stringify(response.data.data.token));
                 setUser(response.data.data);
                 setToken(response.data.data.token);
-                setAccount(userDetails.data.data.AccountDetails);
+                setAccount(response.data.data.AccountDetails);
                 toast.success("Login Successfull")
                 navigate("/");
         }catch(error){
