@@ -87,7 +87,7 @@ router.post("/fetchtransactions" , async(req , res)=>{
         const userDetails = await User.findOne({_id:userId});
         if(!userDetails){
             return res.status(404).json({
-                success:failed,
+                success:false,
                 message:"Invalid User",
             })
         }
