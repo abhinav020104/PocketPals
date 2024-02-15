@@ -5,7 +5,7 @@ require("dotenv").config();
 const loginHandler = async(req , res)=>{
     try{
         const {UserName , Password} = req.body;
-        const userDetails = await User.findOne({UserName:UserName});
+        const userDetails = await User.findOne({UserName:UserName}).populate("AccountDetails").exec();
         const JWT_SECRET = process.env.JWT_SECRET;
     if(!userDetails){
         return res.status(404).json({

@@ -31,12 +31,13 @@ const Login = () => {
                 url:"https://paytm-backend-bv0y.onrender.com/api/v1/login",
                 data:loginData
             })
+                navigate("/");
+                console.log(response.data.data.AccountDetails);
+                setAccount(response.data.data.AccountDetails);
                 localStorage.setItem("token", JSON.stringify(response.data.data.token));
                 setUser(response.data.data);
                 setToken(response.data.data.token);
-                setAccount(response.data.data.AccountDetails);
                 toast.success("Login Successfull")
-                navigate("/");
         }catch(error){
             toast.error("Invalid Credentials")
             console.log("Login Error");
