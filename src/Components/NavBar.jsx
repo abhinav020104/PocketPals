@@ -2,17 +2,15 @@ import { useRecoilState, useRecoilValue } from "recoil";
 import { userAtom , tokenAtom, loadingAtom, AccountAtom } from "../Store/Atoms/User";
 import { Link } from "react-router-dom";
 import {useNavigate} from "react-router-dom";
+import { useState } from "react";
 function NavBar(){
     const navigate = useNavigate();
     const [user , setUser] = useRecoilState(userAtom);
     const [token , setToken] = useRecoilState(tokenAtom);
     const [account , setAccount] = useRecoilState(AccountAtom);
+    const [showDialog , setShowDialog] = useState(true);
     const clickHandler = ()=>{
-        setUser({});
-        setToken(null);
-        setAccount({});
-        localStorage.clear();   
-        navigate("/");
+        navigate("/logout");
     }
     const loading = useRecoilValue(loadingAtom);
     return(
@@ -29,7 +27,7 @@ function NavBar(){
                     )
                 }
                 {
-                    token !== null  && (
+                    token !== null&&(
                         <div className=" flex justify-between items-center gap-10">
                             <div className=" font-bold text-slate-200 text-[15px]">
                                 {loading === false ? `Welcome ! ${user.FirstName} ${user.LastName} ` : `Fetching Details...`}

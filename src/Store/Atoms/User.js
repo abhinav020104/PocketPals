@@ -33,7 +33,6 @@ const otpVerificationAtom = atom({
 const loadingAtom = atom({
     key:"loadingAtom",
     default : false
-}
-)
-export {userAtom , tokenAtom , AccountAtom , PaymentAtom , signUpAtom , otpVerificationAtom , loadingAtom}
+})
+export {userAtom , tokenAtom , AccountAtom , PaymentAtom , signUpAtom , otpVerificationAtom , loadingAtom }
 

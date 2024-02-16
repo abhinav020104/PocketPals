@@ -18,6 +18,7 @@ import ForgotPin from './Components/ForgotPin';
 import ResetPin from './Components/ResetPin';
 import SetPin from './Components/SetPin';
 import toast from "react-hot-toast";
+import Logout from './Components/Logout ';
 function App() {
   const token = useRecoilValue(tokenAtom);
   const [user , setUser] = useRecoilState(userAtom);
@@ -62,6 +63,7 @@ function App() {
         <Route path='/reset-pin' element={<ResetPin/>}></Route>
         <Route path='/set-pin' element={<SetPin/>}></Route>
         <Route path='transactions' element={<Transactions/>}></Route>
+        <Route path='/logout' element={<Logout></Logout>}></Route>
       </Routes>
     </div>
   )
