@@ -26,7 +26,7 @@ const TopUp = () => {
             });
             console.log(order);
             var options = {
-                // key: "rzp_test_QVPFTAZ7OOAQ1V",
+                key: "rzp_test_QVPFTAZ7OOAQ1V",
                 amount: topUpdata.amount*100, 
                 currency: "INR",
                 name: "PocketPals", 
