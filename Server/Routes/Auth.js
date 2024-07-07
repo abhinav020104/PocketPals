@@ -1,9 +1,9 @@
 const express = require("express");
 const router = express.Router();
-const loginHandler = require("../Handlers/loginHandler");
-const signUpHandler = require("../Handlers/signUpHandler");
+const loginHandler = require("../handlers/loginHandler");
+const signUpHandler = require("../handlers/signUpHandler");
 const jwt = require("jsonwebtoken");
-const User = require("../Models/User");
+const User = require("../models/User");
 require("dotenv").config();
 const JWT_SECRET =  process.env.JWT_SECRET;
 const bcrypt = require("bcrypt");

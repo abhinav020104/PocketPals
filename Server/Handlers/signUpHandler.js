@@ -1,5 +1,5 @@
-const Account = require("../Models/Account")
-const User = require("../Models/User");
+const Account = require("../models/Account")
+const User = require("../models/User");
 const bcrypt = require("bcrypt");
 const signUpHandler =  async(req , res)=>{
     try{
