@@ -17,7 +17,7 @@ const OtpVerification = ()=>{
             await OtpData.confirm(otp);
             const repsonse = await axios({
                 method:"post",
-                url:"https://paytm-backend-bv0y.onrender.com/api/v1/signup",
+                url:"https://pocketpals-server.codewithabhinav.online/api/v1/signup",
                 data:signUpdata,
             })
             toast.success("SignUp successfull");

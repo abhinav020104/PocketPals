@@ -16,7 +16,7 @@ function Transactions() {
     const fetchData = async () => {
         toast.loading("Fetching Transactions")
         try {
-            const response = await axios.post("https://paytm-backend-bv0y.onrender.com/api/v1/fetchtransactions", {
+            const response = await axios.post("https://pocketpals-server.codewithabhinav.online/api/v1/fetchtransactions", {
                 userId: user._id,
             });
             setTransactions(response.data.data);

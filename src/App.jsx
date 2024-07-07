@@ -30,7 +30,7 @@ function App() {
       setLoading(true);
       const userDetails = await axios({
         method:"post",
-        url:"https://paytm-backend-bv0y.onrender.com/api/v1/getUserDetails",
+        url:"https://pocketpals-server.codewithabhinav.online/api/v1/getUserDetails",
         data:{
           token:token
         }})
