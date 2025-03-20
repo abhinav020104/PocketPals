@@ -18,7 +18,7 @@ router.post("/getUserDetails" , async(req ,res) =>{
         const decoded = jwt.verify(token , JWT_SECRET);
         const userDetails = await User.findOne({UserName:decoded.UserName}).populate("AccountDetails");
         return res.status(200).json({
-            success:true,
+            success:true,   
             message:"Token verification sucessfull !",
             data:userDetails,
         })

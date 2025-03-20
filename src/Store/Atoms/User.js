@@ -17,7 +17,7 @@ const AccountAtom = atom({
 
 const PaymentAtom = atom({
     key:"PaymentAtom",
-    default:null,
+default:null,
 })
 
 const signUpAtom = atom({

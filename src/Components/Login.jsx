@@ -28,7 +28,7 @@ const Login = () => {
         try{
             const response = await axios({
                 method:"post",
-                url:"https://pocketpals-server.codewithabhinav.online/api/v1/login",
+                url:"https://pocketpals-server.codewithabhinav.in/api/v1/login",
                 data:loginData
             })
                 navigate("/");

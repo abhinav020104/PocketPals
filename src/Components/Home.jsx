@@ -33,7 +33,7 @@ function Home(){
             setNotFound(false);
             const response = await axios({
                 method:"post",
-                url:"https://pocketpals-server.codewithabhinav.online/api/v1/account/search",
+                url:"https://pocketpals-server.codewithabhinav.in/api/v1/account/search",
                 data:SearchData,
             })
             if(response.data.data !== null){

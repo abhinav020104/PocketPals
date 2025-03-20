@@ -30,7 +30,7 @@ function App() {
       setLoading(true);
       const userDetails = await axios({
         method:"post",
-        url:"https://pocketpals-server.codewithabhinav.online/api/v1/getUserDetails",
+        url:"https://pocketpals-server.codewithabhinav.in/api/v1/getUserDetails",
         data:{
           token:token
         }})
@@ -46,7 +46,7 @@ function App() {
   }
   useEffect(()=>{
     fetchData();
-  },[]);
+  },[user]);
   return (
     <div className=' overflow-hidden '>
       <Toaster></Toaster>
